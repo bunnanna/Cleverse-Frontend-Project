@@ -4,16 +4,16 @@ interface IRatingStarProps {
 }
 const RatingStar = ({ rating, changeable }: IRatingStarProps) => {
   return (
-    <div className="rating">
+    <div className="rating rating-sm">
       {[...new Array(5)].map((_, idx) => {
         return (
           <input
             key={idx}
             type="radio"
             name="rating-2"
-            className={`mask mask-star-2 bg-orange-400 ${changeable ? '' : 'cursor-default'}`}
-            checked={rating === idx + 1}
-            disabled={!changeable}
+            className={`mask mask-star-2 ${rating > idx + 1 ? 'bg-orange-400' : 'bg-gray-400'} ${
+              changeable ? '' : 'cursor-default'
+            } `}
           />
         )
       })}

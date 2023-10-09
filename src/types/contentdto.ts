@@ -1,11 +1,6 @@
-interface IAuthor {
-  id: string
-  username: string
-  name: string
-  registeredAt: string
-}
+import { UserDTO } from './authdto'
 
-export interface IContentDTO {
+export interface ContentDTO {
   id: number
   videoTitle: string
   videoUrl: string
@@ -14,7 +9,22 @@ export interface IContentDTO {
   thumbnailUrl: string
   creatorName: string
   creatorUrl: string
+  postedBy: UserDTO
   createdAt: string
   updatedAt: string
-  postedBy: IAuthor
+}
+
+export interface ContentsDTO {
+  data: ContentDTO[]
+}
+
+export interface CreateContentDTO {
+  videoUrl: string
+  comment: string
+  rating: number
+}
+
+export interface UpdateContentDTO {
+  comment: string
+  rating: number
 }
