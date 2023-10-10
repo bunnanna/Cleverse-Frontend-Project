@@ -11,6 +11,7 @@ interface IContentEditFormProps {
 }
 const ContentEditForm = ({ contentData, onUpdateContent, onDeleteContent, id }: IContentEditFormProps) => {
   const navigate = useNavigate()
+
   const { comment, rating } = contentData
   const [content, setcontent] = useState<UpdateContentDTO>({ comment, rating })
   const onHandleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
