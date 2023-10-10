@@ -18,14 +18,14 @@ const LoginPage = () => {
       .catch()
   }
   return (
-    <form className=" flex flex-col justify-between items-center gap-5 my-4" onSubmit={onHandleLogin}>
+    <form className=" flex flex-col justify-between items-center gap-5 my-4 w-3/5" onSubmit={onHandleLogin}>
       <h1 className=" text-orange-500 text-3xl font-bold">Login</h1>
       <div>
         <label>Username</label>
         <input
           type="text"
           placeholder="Type here"
-          className="input input-bordered w-full max-w-xs bg-slate-100"
+          className="input input-bordered w-full min-w-xs bg-slate-100"
           name="username"
           onChange={onHandleFormChange}
         />
@@ -35,7 +35,7 @@ const LoginPage = () => {
         <input
           type="password"
           placeholder="Type here"
-          className="input input-bordered w-full max-w-xs bg-slate-100"
+          className="input input-bordered w-full min-w-xs bg-slate-100"
           name="password"
           onChange={onHandleFormChange}
         />

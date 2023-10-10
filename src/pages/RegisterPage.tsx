@@ -26,14 +26,14 @@ const RegisterPage = () => {
       .catch(() => console.log(isError))
   }
   return (
-    <form className=" flex flex-col justify-between items-center gap-5 my-4" onSubmit={onHandleLogin}>
+    <form className=" flex flex-col justify-between items-center gap-5 my-4 w-3/5" onSubmit={onHandleLogin}>
       <h1 className=" text-orange-500 text-3xl font-bold">Login</h1>
       <div className="w-full flex flex-col items-start">
         <label>Username</label>
         <input
           type="text"
           placeholder="Type here"
-          className="input input-bordered w-full max-w-xs bg-slate-100"
+          className="input input-bordered w-full min-w-xs bg-slate-100"
           name="username"
           onChange={onHandleFormChange}
         />
@@ -43,7 +43,7 @@ const RegisterPage = () => {
         <input
           type="text"
           placeholder="Type here"
-          className="input input-bordered w-full max-w-xs bg-slate-100"
+          className="input input-bordered w-full min-w-xs bg-slate-100"
           name="name"
           onChange={onHandleFormChange}
         />
@@ -53,7 +53,7 @@ const RegisterPage = () => {
         <input
           type="password"
           placeholder="Type here"
-          className="input input-bordered w-full max-w-xs bg-slate-100"
+          className="input input-bordered w-full min-w-xs bg-slate-100"
           name="password"
           onChange={onHandleFormChange}
         />
@@ -63,7 +63,7 @@ const RegisterPage = () => {
         <input
           type="password"
           placeholder="Type here"
-          className="input input-bordered w-full max-w-xs bg-slate-100"
+          className="input input-bordered w-full min-w-xs bg-slate-100"
           name="ConfirmPassword"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
