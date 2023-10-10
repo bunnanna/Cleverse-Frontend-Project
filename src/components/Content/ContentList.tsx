@@ -2,25 +2,37 @@ import { Link } from 'react-router-dom'
 import useContents from '../../hooks/useContents'
 import { useUser } from '../../provider/AuthProvider'
 import ContentCard from './ContentCard'
+import Pagination from '../Pagination'
+import { useEffect, useState } from 'react'
 
 const ContentList = () => {
   const { user } = useUser()
   const { contents } = useContents()
+  const [chunkNum, setChunkNum] = useState(0)
+  const [chunkLen, setChunkLen] = useState(0)
+
+  useEffect(() => {
+    setChunkLen(Math.ceil(contents.length / 20))
+  }, [contents])
 
   return (
-    <>
-      {user && (
-        <Link to={'/new'} className="w-full flex justify-end">
-          <button className="btn btn-primary mx-32 mt-9 bg-orange-500">Crate New Content</button>
-        </Link>
-      )}
-
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 my-9 mx-32">
-        {contents.map((content) => {
+    <div className="mx-32 my-9 flex flex-col gap-12">
+      <div className="w-full flex">
+        <div className="flex-grow">
+          <Pagination chunkNum={chunkNum} setChunkNum={setChunkNum} chunkLen={chunkLen} />
+        </div>
+        {user && (
+          <Link to={'/new'} className="flex-none">
+            <button className="btn btn-primary bg-orange-500">Crate New Content</button>
+          </Link>
+        )}
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 ">
+        {contents.slice(chunkNum * 20, (chunkNum + 1) * 20).map((content) => {
           return <ContentCard key={content.id} content={content} />
         })}
       </div>
-    </>
+    </div>
   )
 }
 export default ContentList
