@@ -3,7 +3,6 @@ import { CreateContentDTO } from '../../types/contentdto'
 import RatingStar from '../RatingStar'
 import useContents from '../../hooks/useContents'
 import { useNavigate } from 'react-router-dom'
-import Toast from '../Toast'
 const initCreateContent: CreateContentDTO = {
   videoUrl: '',
   comment: '',
@@ -11,7 +10,7 @@ const initCreateContent: CreateContentDTO = {
 }
 const ContentCreate = () => {
   const navigate = useNavigate()
-  const { onCreateContent, isLoading, isError } = useContents()
+  const { onCreateContent } = useContents()
   const [content, setcontent] = useState<CreateContentDTO>(initCreateContent)
   const onHandleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setcontent({ ...content, [e.target.name]: e.target.value })
@@ -22,12 +21,13 @@ const ContentCreate = () => {
   const onHandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onCreateContent(content)
-      .then(() => navigate('/'))
+      .then(() => {
+        navigate('/')
+      })
       .catch()
   }
   return (
     <>
-      <Toast isLoading={isLoading} isError={isError} />
       <form className=" flex flex-col justify-between items-center gap-5 my-4 w-3/5" onSubmit={onHandleSubmit}>
         <h1 className=" text-orange-500 text-3xl font-bold">Create new content</h1>
         <div className="w-full flex flex-col items-start">
