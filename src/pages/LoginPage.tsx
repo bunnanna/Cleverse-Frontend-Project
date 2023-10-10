@@ -20,7 +20,7 @@ const LoginPage = () => {
   return (
     <form className=" flex flex-col justify-between items-center gap-5 my-4 w-3/5" onSubmit={onHandleLogin}>
       <h1 className=" text-orange-500 text-3xl font-bold">Login</h1>
-      <div>
+      <div className="w-full flex flex-col items-start">
         <label>Username</label>
         <input
           type="text"
@@ -30,7 +30,7 @@ const LoginPage = () => {
           onChange={onHandleFormChange}
         />
       </div>
-      <div>
+      <div className="w-full flex flex-col items-start">
         <label>Password</label>
         <input
           type="password"
