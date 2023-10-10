@@ -6,7 +6,7 @@ interface IRatingStarProps {
   size?: 'rating-xs' | 'rating-sm' | 'rating-md' | 'rating-xl'
 }
 const RatingStar = ({ rating, setRating, size = 'rating-md' }: IRatingStarProps) => {
-  const [currentRating, setCurrentRating] = useState(rating + 1)
+  const [currentRating, setCurrentRating] = useState(rating)
   const changeable = !!setRating
 
   return (
@@ -17,7 +17,7 @@ const RatingStar = ({ rating, setRating, size = 'rating-md' }: IRatingStarProps)
             key={idx}
             type="radio"
             name="rating-2"
-            className={`mask mask-star-2 ${currentRating >= idx + 1 ? 'bg-orange-400' : 'bg-gray-400'} ${
+            className={`mask mask-star-2 ${currentRating > idx ? 'bg-orange-400' : 'bg-gray-400'} ${
               changeable ? '' : 'cursor-default'
             } `}
             onMouseEnter={() => changeable && setCurrentRating(idx + 1)}
