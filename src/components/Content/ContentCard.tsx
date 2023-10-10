@@ -18,7 +18,7 @@ const ContentCard = ({ content }: IContentCardProps) => {
         <div className="card-actions justify-between">
           <div className="text-sm whitespace-normal">{content.postedBy.name}</div>
           <div className="">
-            <RatingStar rating={content.rating} changeable={false} />
+            <RatingStar rating={content.rating} size={'rating-sm'} />
           </div>
         </div>
       </div>
