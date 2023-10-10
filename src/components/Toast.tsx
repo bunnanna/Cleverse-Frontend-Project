@@ -1,7 +1,9 @@
-import { useUser } from '../provider/AuthProvider'
-
-const Toast = () => {
-  const { isError, isLoading } = useUser()
+import { ErrorDTO } from '../types/errordto'
+interface IToastProps {
+  isLoading?: boolean
+  isError?: ErrorDTO | null
+}
+const Toast = ({ isError, isLoading }: IToastProps) => {
   return (
     <div className="toast toast-top toast-center">
       {isLoading && (
