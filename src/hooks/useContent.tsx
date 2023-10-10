@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { ContentDTO, UpdateContentDTO } from '../types/contentdto'
 import { ErrorDTO } from '../types/errordto'
 
-const useContent = (id: number) => {
+const useContent = (id: string) => {
   const url = `https://api.learnhub.thanayut.in.th/content/${id}`
   const [content, setContent] = useState<ContentDTO | null>()
   const [isLoading, setIsLoading] = useState(false)

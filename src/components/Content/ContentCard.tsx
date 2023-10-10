@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { ContentDTO } from '../../types/contentdto'
 import RatingStar from '../RatingStar'
 interface IContentCardProps {
@@ -5,7 +6,7 @@ interface IContentCardProps {
 }
 const ContentCard = ({ content }: IContentCardProps) => {
   return (
-    <div className="card shadow-xl">
+    <Link to={`/content/${content.id}`} className="card shadow-xl">
       <figure>
         <img className="object-cover aspect-video" src={content.thumbnailUrl} alt={content.videoUrl} />
       </figure>
@@ -22,7 +23,7 @@ const ContentCard = ({ content }: IContentCardProps) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 export default ContentCard
