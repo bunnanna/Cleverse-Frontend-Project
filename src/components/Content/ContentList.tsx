@@ -25,7 +25,7 @@ const ContentList = () => {
   }, [contents, rating])
 
   return (
-    <div className="mx-32 my-9 flex flex-col gap-12">
+    <div className="mx-auto my-9 flex flex-col gap-12 w-4/5">
       <div className="w-full flex justify-between">
         <Dropdown rating={rating} setRating={setRating} />
         <Pagination chunkNum={chunkNum} setChunkNum={setChunkNum} chunkLen={chunkLen} />

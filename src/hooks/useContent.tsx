@@ -2,23 +2,23 @@ import axios, { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import { ContentDTO, UpdateContentDTO } from '../types/contentdto'
 import { ErrorDTO } from '../types/errordto'
-import { useUser } from '../provider/AuthProvider'
+import { useAppStatus } from '../provider/StateProvider'
 
 const useContent = (id: string) => {
   const url = `https://api.learnhub.thanayut.in.th/content/${id}`
   const [content, setContent] = useState<ContentDTO | null>()
-  const { setIsLoading, onError, onSuccess } = useUser()
+  const { onLoading, onError, onSuccess } = useAppStatus()
 
   useEffect(() => {
     const fetchContent = async () => {
-      setIsLoading(`Content number ${id}`)
+      onLoading(`Content number ${id}`)
       await axios
         .get<ContentDTO>(url, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json' },
         })
         .then((res) => {
           setContent(res.data)
-          onSuccess(`Content number ${id}`)
+          onSuccess(``)
         })
         .catch((err: AxiosError<ErrorDTO>) => {
           onError(err)
@@ -28,7 +28,7 @@ const useContent = (id: string) => {
   }, [url])
 
   const onUpdateContent = async (newData: UpdateContentDTO) => {
-    setIsLoading(`Update Content number ${id}`)
+    onLoading(`Update Content number ${id}`)
     await axios
       .patch(url, newData, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json' },
@@ -40,7 +40,7 @@ const useContent = (id: string) => {
   }
 
   const onDeleteContent = async () => {
-    setIsLoading(`Delete Content number ${id}`)
+    onLoading(`Delete Content number ${id}`)
     await axios
       .delete(url, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json' },
