@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useUser } from '../provider/AuthProvider'
 import { FormEvent, useState } from 'react'
+import ForgetPassword from '../components/ForgetPassword'
 
 const LoginPage = () => {
   const navigate = useNavigate()
@@ -42,6 +43,7 @@ const LoginPage = () => {
       </div>
       <button className="btn w-full bg-orange-500 hover:bg-orange-600 text-white">Login</button>
       <Link to={'/register'}> Do not have an account? Register</Link>
+      <ForgetPassword />
     </form>
   )
 }
