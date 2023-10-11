@@ -2,20 +2,20 @@ import axios, { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import { ContentDTO, ContentsDTO, CreateContentDTO } from '../types/contentdto'
 import { ErrorDTO } from '../types/errordto'
-import { useUser } from '../provider/AuthProvider'
+import { useAppStatus } from '../provider/StateProvider'
 
 const useContents = () => {
   const url = 'https://api.learnhub.thanayut.in.th/content/'
   const [contents, setContents] = useState<ContentDTO[]>([])
-  const { setIsLoading, onError, onSuccess } = useUser()
+  const { onLoading, onError, onSuccess } = useAppStatus()
 
   useEffect(() => {
     const fetchContents = async () => {
-      setIsLoading('All Contents')
+      onLoading('All Contents')
       await axios
         .get<ContentsDTO>(url)
         .then((res) => {
-          onSuccess('All Contents')
+          onSuccess('')
           setContents(res.data.data)
         })
         .catch((err: AxiosError<ErrorDTO>) => {
@@ -23,10 +23,10 @@ const useContents = () => {
         })
     }
     fetchContents()
-  }, [])
+  }, [url])
 
   const onCreateContent = async (newData: CreateContentDTO) => {
-    setIsLoading('Create Content')
+    onLoading('Create Content')
     await axios
       .post(url, newData, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json' },

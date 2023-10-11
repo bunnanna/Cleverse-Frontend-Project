@@ -1,17 +1,17 @@
-import { useUser } from '../provider/AuthProvider'
+import { useAppStatus } from '../provider/StateProvider'
 
 const Toast = () => {
-  const { isLoading, isError, isSuccess } = useUser()
+  const { isLoading, isError, isSuccess } = useAppStatus()
   return (
     <div className="toast toast-top toast-center">
       {isLoading && (
-        <div className="alert alert-info">
+        <div className="alert alert-info bg-sky-50">
           <span className="loading loading-spinner loading-md"></span>
           <span>Loading for {isLoading}</span>
         </div>
       )}
       {isError && (
-        <div className="alert alert-error">
+        <div className="alert alert-error bg-red-50">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="stroke-current shrink-0 h-6 w-6"
@@ -29,7 +29,7 @@ const Toast = () => {
         </div>
       )}
       {isSuccess && (
-        <div className="alert bg-green-200 text-black">
+        <div className="alert bg-lime-50 text-black">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="stroke-current shrink-0 h-6 w-6"

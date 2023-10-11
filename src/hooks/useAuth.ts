@@ -2,40 +2,17 @@ import axios, { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import { CredentialDTO, LoginDTO, RegisterDTO, UserDTO } from '../types/authdto'
 import { ErrorDTO } from '../types/errordto'
-import { useLocation } from 'react-router-dom'
+import { useAppStatus } from '../provider/StateProvider'
 
 const useAuth = () => {
   const [userToken, setUserToken] = useState<string | null>(localStorage.getItem('token'))
   const [user, setUser] = useState<UserDTO | null>(null)
-  const [isLoading, setIsLoading] = useState<string>('')
-  const [isSuccess, setIsSuccess] = useState<string>('')
-  const [isError, setIsError] = useState<ErrorDTO | null>(null)
-
-  const location = useLocation()
-
-  const onSuccess = (Successfrom: string) => {
-    setIsLoading('')
-    setIsSuccess(Successfrom)
-    setTimeout(() => {
-      setIsSuccess('')
-    }, 3000)
-  }
-
-  const onError = (err: AxiosError<ErrorDTO>) => {
-    setIsLoading('')
-    setIsError(err?.response?.data || null)
-    throw err
-  }
-
-  useEffect(() => {
-    setIsError(null)
-    setIsLoading('')
-  }, [location.pathname])
+  const { onLoading, onError, onSuccess } = useAppStatus()
 
   useEffect(() => {
     const GetUserData = async () => {
       if (!userToken) return
-      setIsLoading('User data')
+      onLoading('User data')
       await axios
         .get<UserDTO>('https://api.learnhub.thanayut.in.th/auth/me', {
           headers: { Authorization: `Bearer ${userToken}`, 'Content-Type': 'application/json' },
@@ -45,15 +22,14 @@ const useAuth = () => {
           onSuccess('')
         })
         .catch((err: AxiosError<ErrorDTO>) => {
-          setIsError(err?.response?.data || null)
-          throw err
+          onError(err)
         })
     }
     GetUserData()
   }, [userToken])
 
   const onLogin = async (loginBody: LoginDTO) => {
-    setIsLoading('Login')
+    onLoading('Login')
     await axios
       .post<CredentialDTO>('https://api.learnhub.thanayut.in.th/auth/login', loginBody, {
         headers: { 'Content-Type': 'application/json' },
@@ -78,9 +54,9 @@ const useAuth = () => {
 
   const onCreateUser = async (registerBody: RegisterDTO, confirmPassword: string) => {
     if (confirmPassword !== registerBody.password) {
-      setIsError({ message: 'Password not match', statusCode: 0, error: 'error' })
+      onError({ message: 'Password not match', statusCode: 0, error: 'error' })
     }
-    setIsLoading('Create User')
+    onLoading('Create User')
     await axios
       .post<RegisterDTO>('https://api.learnhub.thanayut.in.th/user', registerBody, {
         headers: { 'Content-Type': 'application/json' },
@@ -96,16 +72,9 @@ const useAuth = () => {
 
   return {
     user,
-    isLoading,
-    isError,
     onLogin,
     onLogout,
     onCreateUser,
-    onSuccess,
-    isSuccess,
-    setIsError,
-    setIsLoading,
-    onError,
   }
 }
 export default useAuth

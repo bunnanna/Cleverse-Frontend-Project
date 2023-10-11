@@ -11,7 +11,7 @@ const initRegister: RegisterDTO = {
 
 const RegisterPage = () => {
   const navigate = useNavigate()
-  const { onCreateUser, isError } = useUser()
+  const { onCreateUser } = useUser()
   const [registerBody, setLoginBody] = useState(initRegister)
   const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -23,7 +23,7 @@ const RegisterPage = () => {
     e.preventDefault()
     onCreateUser(registerBody, confirmPassword)
       .then(() => navigate('/'))
-      .catch(() => console.log(isError))
+      .catch()
   }
   return (
     <form className=" flex flex-col justify-between items-center gap-5 my-4 w-3/5" onSubmit={onHandleLogin}>
