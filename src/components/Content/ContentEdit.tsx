@@ -1,7 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom'
 import useContent from '../../hooks/useContent'
-import ContentEditForm from './ContentEditForm'
 import { useUser } from '../../provider/AuthProvider'
+import ContentEditForm from './ContentEditForm'
 
 const ContentEdit = () => {
   const { id } = useParams()

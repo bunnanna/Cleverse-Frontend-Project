@@ -1,11 +1,12 @@
 import axios, { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
+import BASEPATH from '../config/basePath'
+import { useAppStatus } from '../provider/StateProvider'
 import { ContentDTO, ContentsDTO, CreateContentDTO } from '../types/contentdto'
 import { ErrorDTO } from '../types/errordto'
-import { useAppStatus } from '../provider/StateProvider'
 
 const useContents = () => {
-  const url = 'https://api.learnhub.thanayut.in.th/content/'
+  const url = `${BASEPATH}/content/`
   const [contents, setContents] = useState<ContentDTO[]>([])
   const { onLoading, onError, onSuccess } = useAppStatus()
 
@@ -16,13 +17,15 @@ const useContents = () => {
         .get<ContentsDTO>(url)
         .then((res) => {
           onSuccess('')
-          setContents(res.data.data)
+          setContents(res.data)
         })
         .catch((err: AxiosError<ErrorDTO>) => {
           onError(err)
         })
     }
     fetchContents()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url])
 
   const onCreateContent = async (newData: CreateContentDTO) => {

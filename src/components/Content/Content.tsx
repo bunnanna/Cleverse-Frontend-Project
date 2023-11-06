@@ -1,8 +1,8 @@
+import ReactPlayer from 'react-player/youtube'
 import { useNavigate, useParams } from 'react-router-dom'
 import useContent from '../../hooks/useContent'
-import ReactPlayer from 'react-player/youtube'
-import RatingStar from '../RatingStar'
 import { useUser } from '../../provider/AuthProvider'
+import RatingStar from '../RatingStar'
 
 const Content = () => {
   const navigate = useNavigate()

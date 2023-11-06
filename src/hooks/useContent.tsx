@@ -1,11 +1,12 @@
 import axios, { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
+import BASEPATH from '../config/basePath'
+import { useAppStatus } from '../provider/StateProvider'
 import { ContentDTO, UpdateContentDTO } from '../types/contentdto'
 import { ErrorDTO } from '../types/errordto'
-import { useAppStatus } from '../provider/StateProvider'
 
 const useContent = (id: string) => {
-  const url = `https://api.learnhub.thanayut.in.th/content/${id}`
+  const url = `${BASEPATH}/content/${id}`
   const [content, setContent] = useState<ContentDTO | null>()
   const { onLoading, onError, onSuccess } = useAppStatus()
 
@@ -25,6 +26,7 @@ const useContent = (id: string) => {
         })
     }
     fetchContent()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url])
 
   const onUpdateContent = async (newData: UpdateContentDTO) => {
