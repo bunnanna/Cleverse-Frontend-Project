@@ -12,12 +12,15 @@ const useAuth = () => {
 
   useEffect(() => {
     const GetUserData = async () => {
+      axios.defaults.headers.common = {
+        Authorization: userToken ? `Bearer ${userToken}` : undefined,
+        'Content-Type': 'application/json',
+      }
+
       if (!userToken) return
       onLoading('User data')
       await axios
-        .get<UserDTO>(`${BASEPATH}/auth/me`, {
-          headers: { Authorization: `Bearer ${userToken}`, 'Content-Type': 'application/json' },
-        })
+        .get<UserDTO>(`${BASEPATH}/auth/me`)
         .then((res) => {
           setUser(res.data)
           onSuccess('')
@@ -33,9 +36,7 @@ const useAuth = () => {
   const onLogin = async (loginBody: LoginDTO) => {
     onLoading('Login')
     await axios
-      .post<CredentialDTO>(`${BASEPATH}/auth/login`, loginBody, {
-        headers: { 'Content-Type': 'application/json' },
-      })
+      .post<CredentialDTO>(`${BASEPATH}/auth/login`, loginBody)
       .then((res) => res.data)
       .then((res) => {
         localStorage.setItem('token', res.accessToken)
@@ -60,9 +61,7 @@ const useAuth = () => {
     }
     onLoading('Create User')
     await axios
-      .post<RegisterDTO>(`${BASEPATH}/user`, registerBody, {
-        headers: { 'Content-Type': 'application/json' },
-      })
+      .post<RegisterDTO>(`${BASEPATH}/user`, registerBody)
       .then((res) => res.data)
       .then(() => {
         onLogin(registerBody)

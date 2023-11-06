@@ -14,9 +14,7 @@ const useContent = (id: string) => {
     const fetchContent = async () => {
       onLoading(`Content number ${id}`)
       await axios
-        .get<ContentDTO>(url, {
-          headers: { 'Content-Type': 'application/json' },
-        })
+        .get<ContentDTO>(url)
         .then((res) => {
           setContent(res.data)
           onSuccess(``)
@@ -32,9 +30,7 @@ const useContent = (id: string) => {
   const onUpdateContent = async (newData: UpdateContentDTO) => {
     onLoading(`Update Content number ${id}`)
     await axios
-      .patch(url, newData, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json' },
-      })
+      .patch(url, newData)
       .then(() => onSuccess(`Update Content number ${id}`))
       .catch((err: AxiosError<ErrorDTO>) => {
         onError(err)
@@ -44,9 +40,7 @@ const useContent = (id: string) => {
   const onDeleteContent = async () => {
     onLoading(`Delete Content number ${id}`)
     await axios
-      .delete(url, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json' },
-      })
+      .delete(url)
       .then(() => onSuccess(`Delete Content number ${id}`))
       .catch((err: AxiosError<ErrorDTO>) => {
         onError(err)

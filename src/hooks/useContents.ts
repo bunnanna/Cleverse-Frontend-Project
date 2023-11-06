@@ -31,9 +31,7 @@ const useContents = () => {
   const onCreateContent = async (newData: CreateContentDTO) => {
     onLoading('Create Content')
     await axios
-      .post(url, newData, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json' },
-      })
+      .post(url, newData)
       .then(() => onSuccess('Create Content'))
       .catch((err: AxiosError<ErrorDTO>) => {
         onError(err)
